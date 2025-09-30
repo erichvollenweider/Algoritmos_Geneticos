@@ -33,7 +33,7 @@ X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.3, random_st
 # random_state=42: fija la semilla para obtener siempre la misma separación (reproducibilidad).
 
 
-# Escalado (importante en regresión)
+# Escalado
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train) # fit_transform calcula media/desv en X_train y aplica la transformación.
 X_val_scaled = scaler.transform(X_val)         # transform aplica la misma transformación calculada a X_val.
@@ -58,3 +58,39 @@ coef = pd.DataFrame({
 }).sort_values(by="Coeficiente", ascending=False)
 
 print(coef)
+
+# Modelo de cómputos con gradiente
+
+X = df.drop("quality", axis=1).values  # features
+y = df["quality"].values.reshape(-1, 1)  # target en columna
+
+# 2. Escalar datos (muy importante para gradiente descendente)
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# 3. Agregar columna de 1s para el bias
+m = X_scaled.shape[0]
+X_b = np.c_[np.ones((m, 1)), X_scaled]  # (m, n+1)
+
+# 4. Inicialización de parámetros
+n_features = X_b.shape[1]
+theta = np.zeros((n_features, 1))  # incluye bias
+eta = 0.01       # tasa de aprendizaje
+n_iter = 1000    # iteraciones
+
+# 5. Gradiente descendente
+for iteration in range(n_iter):
+    gradients = (1/m) * X_b.T @ (X_b @ theta - y)
+    theta = theta - eta * gradients
+
+# 6. Predicciones
+y_pred = X_b @ theta
+
+# 7. Métricas
+mse = mean_squared_error(y, y_pred)
+r2 = r2_score(y, y_pred)
+print("\nResultados del modelo con gradiente descendente:")
+print("Theta finales (bias + coeficientes):")
+print(theta.ravel())
+print(f"MSE: {mse:.4f}")
+print(f"R²: {r2:.4f}")
