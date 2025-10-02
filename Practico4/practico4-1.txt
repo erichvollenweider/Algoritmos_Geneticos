@@ -1,0 +1,29 @@
+| PUNTO | X | Y | CLASE |
+|-------|---|---|-------|
+|  P1   | 1 | 2 |   A   |
+|  P2   | 2 | 3 |   A   |
+|  P3   | 3 | 3 |   B   |
+|  P4   | 5 | 1 |   B   |
+|  P5   | 6 | 2 |   B   |
+
+Q = (3,2)
+
+a. Distancia Euclidiana
+dist_euclidiana(Q,P1) = sqrt( (3-1)² + (2-2)² ) = 2
+dist_euclidiana(Q,P2) = sqrt( (3-2)² + (2-3)² ) = 1,4
+dist_euclidiana(Q,P3) = sqrt( (3-3)² + (2-3)² ) = 1
+dist_euclidiana(Q,P4) = sqrt( (3-5)² + (2-1)² ) = 2,2
+dist_euclidiana(Q,P5) = sqrt( (3-6)² + (2-2)² ) = 3
+
+b. Ordenar los vecinos
+P3; P2; P1; P4; P5
+
+c. Decide la clase final
+Clase final = A
+
+d. Distancia manhattan
+dist_manhattan(Q,P1) = sqrt(3-1)² + sqrt(2-2)² = 2
+dist_manhattan(Q,P2) = sqrt(3-2)² + sqrt(2-3)² = 2
+dist_manhattan(Q,P3) = sqrt(3-3)² + sqrt(2-3)² = 1
+dist_manhattan(Q,P4) = sqrt(3-5)² + sqrt(2-1)² = 3
+dist_manhattan(Q,P5) = sqrt(3-6)² + sqrt(2-2)² = 3
